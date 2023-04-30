@@ -17,11 +17,11 @@ export const GetAll = async(req, res) => {
         const product = await Product.paginate({}, options);
         if(!product){
             return res.status(400).json({
-                message:"Khong tim thay danh muc nao"
+                message:"Không tìm thấy sản phẩm "
             })
         }
         return res.status(201).json({
-            message:"Lay danh muc thanh cong",
+            message:"Lay sản phẩm thành công",
             product
         })
     } catch (error) {
@@ -33,14 +33,14 @@ export const GetAll = async(req, res) => {
 
 export const Get = async(req, res) => {
     try {
-        const product = await Product.findById(req.params.id).populate("categoryId")
+        const product = await Product.findById(req.params.id).populate("categoryId", "products[]")
         if(!product){
             return res.status(400).json({
-                message:"Khong tim thay danh muc nao"
+                message:"Không tìm thấy sản phẩm này"
             })
         }
         return res.status(201).json({
-            message:"Lay danh muc thanh cong",
+            message:"Lấy sản phẩm thành công",
             product
         })
     } catch (error) {
@@ -69,7 +69,7 @@ export const Create = async(req, res) => {
         })
 
         return res.status(201).json({
-            message: "Them San pham thanh cong",
+            message: "Thêm sản phẩm thành công",
             product
         })
 
@@ -85,7 +85,7 @@ export const Remove = async(req, res) => {
         const product = await Product.findByIdAndDelete(req.params.id)
 
         return res.status(201).json({
-            message: "Xoa danh muc thanh cong",
+            message: "Xóa sản phẩm thành công",
             product
         })
 
@@ -101,7 +101,7 @@ export const Update = async(req, res) => {
         const product = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
         return res.status(201).json({
-            message: "Update danh muc thanh cong",
+            message: "Sửa sản phẩm thành công",
             product
         })
 

@@ -3,14 +3,14 @@ import Category from'../models/category'
 
 export const GetAll = async(req, res) => {
     try {
-        const category = await Category.find();
+        const category = await Category.find({});
         if(!category){
             return res.status(400).json({
-                message:"Khong tim thay danh muc nao"
+                message:"Không tìm thấy danh mục nào"
             })
         }
         return res.status(201).json({
-            message:"Lay danh muc thanh cong",
+            message:"Lấy danh mục thành công",
             category
         })
     } catch (error) {
@@ -22,14 +22,14 @@ export const GetAll = async(req, res) => {
 
 export const Get = async(req, res) => {
     try {
-        const category = await Category.findById(req.params.id).populate("products")
+        const category = await Category.findById(req.params.id).populate("products", "categoryId[]")
         if(!category){
             return res.status(400).json({
-                message:"Khong tim thay danh muc nao"
+                message:"Không tìm thấy danh mục nào"
             })
         }
         return res.status(201).json({
-            message:"Lay danh muc thanh cong",
+            message:"Lấy danh mục thành công",
             category
         })
     } catch (error) {
@@ -52,7 +52,7 @@ export const Create = async(req, res) => {
         const category = await Category.create(req.body)
 
         return res.status(201).json({
-            message: "Them danh muc thanh cong",
+            message: "Thêm danh mục thành công",
             category
         })
 
@@ -68,7 +68,7 @@ export const Remove = async(req, res) => {
         const category = await Category.findByIdAndDelete(req.params.id)
 
         return res.status(201).json({
-            message: "Xoa danh muc thanh cong",
+            message: "Xóa danh mục thành công",
             category
         })
 
@@ -84,7 +84,7 @@ export const Update = async(req, res) => {
         const category = await Category.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
         return res.status(201).json({
-            message: "Update danh muc thanh cong",
+            message: "Sửa danh mục thành công",
             category
         })
 

@@ -15,7 +15,7 @@ export const signup = async(req, res) => {
         const userExit = await User.findOne({email: req.body.email})
         if(userExit){
              return res.status(400).json({
-                message: "Email da duoc dang ky"
+                message: "Email này đã được đăng ký"
              })
         }
 
@@ -28,7 +28,7 @@ export const signup = async(req, res) => {
         })
 
         return res.status(201).json({
-            message: "dang ky thanh cong",
+            message: "Đăng ký thanh công",
             user
         })
     } catch (error) {
@@ -50,7 +50,7 @@ export const signin = async(req, res) => {
         const user = await User.findOne({email: req.body.email})
         if(!user){
              return res.status(400).json({
-                message: "Email khong ton tai"
+                message: "Email chưa được đăng ký"
              })
         }
 
@@ -59,14 +59,14 @@ export const signin = async(req, res) => {
 
         if(!isMatch){
             return res.status(400).json({
-                message: "Mat khau khong dung"
+                message: "Mật khẩu không đúng "
             })
         }
 
         const token = jwt.sign({id: user._id}, "123456", {expiresIn: "1d"})
 
         return res.status(201).json({
-            message: "dang nhap thanh cong",
+            message: "Đăng nhập thành công",
             accessToken: token,
             user
         })

@@ -11,5 +11,5 @@ app.use(categoryRouter)
 app.use(productRouter)
 app.use(authRouter)
 
-mongoose.connect('mongodb://127.0.0.1:27017/LuyenTap2')
+mongoose.connect('mongodb://127.0.0.1:27017/NodeJs_server')
 export const viteNodeApp = app
